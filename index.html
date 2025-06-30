@@ -2,40 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to My Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedLearn | Home</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #fdfdfd;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fc;
       color: #333;
+    }
+
+    nav {
+      background-color: #5f27cd;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-weight: 500;
+    }
+
+    .hero {
+      height: calc(100vh - 70px);
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
       text-align: center;
+      padding: 2rem;
     }
-    header {
-      font-size: 2.5rem;
-      font-weight: bold;
-      margin-bottom: 0.5em;
+
+    .hero h1 {
+      font-size: 3rem;
+      color: #5f27cd;
+      margin-bottom: 1rem;
     }
-    p {
+
+    .hero p {
       font-size: 1.2rem;
       max-width: 600px;
+      margin-bottom: 2rem;
     }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: #5f27cd;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #4e20aa;
+    }
+
+    .btn-secondary {
+      background-color: #ddd;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background-color: #ccc;
+    }
+
     footer {
-      margin-top: 2em;
+      text-align: center;
+      padding: 1rem;
       font-size: 0.9rem;
-      color: #888;
+      color: #999;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .buttons {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <header>Welcome to My Website</header>
-  <p>This is the homepage I built from scratch! Stay tuned for updates and content coming soon.</p>
-  <footer>© 2025 Alexia</footer>
+
+  <nav>
+    <div class="logo">MedLearn</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">Courses</a>
+      <a href="#">Login</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <h1>Welcome to MedLearn</h1>
+    <p>Your one-stop platform for mastering medicine. Access interactive courses, practice questions, and stay on top of your med school journey.</p>
+    <div class="buttons">
+      <a href="#" class="btn-primary">Enter Dashboard</a>
+      <a href="#" class="btn-secondary">Browse Courses</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 MedLearn. All rights reserved.
+  </footer>
+
 </body>
 </html>
