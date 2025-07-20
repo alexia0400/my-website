@@ -3,136 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rate pas tes partiels | Home</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f8f9fc;
-      color: #333;
-    }
-
-    nav {
-      background-color: #5f27cd;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-    }
-
-    nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    nav .nav-links a {
-      color: white;
-      text-decoration: none;
-      margin-left: 1.5rem;
-      font-weight: 500;
-    }
-
-    .hero {
-      height: calc(100vh - 70px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      color: #5f27cd;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .buttons a {
-      text-decoration: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
-    }
-
-    .btn-primary {
-      background-color: #5f27cd;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background-color: #4e20aa;
-    }
-
-    .btn-secondary {
-      background-color: #ddd;
-      color: #333;
-    }
-
-    .btn-secondary:hover {
-      background-color: #ccc;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #999;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      .buttons {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+  <title>Alexia's Art</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Raleway&display=swap" rel="stylesheet">
 </head>
 <body>
+  <header class="hero">
+    <h1>Alexia's World</h1>
+    <p>A visual diary of moments, mood, and magic ✨</p>
+  </header>
 
-  <nav>
-    <div class="logo">Rate pas les partiels</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#">Courses</a>
-      <a href="#">Login</a>
-    </div>
-  </nav>
-
-  <div class="hero">
-    <h1>RATE PAS LES PARTIELS</h1>
-    <p>QCMs de qualite pour ne pas rater les partiels</p>
-    <div class="buttons">
-      <a href="#" class="btn-primary">Enter Dashboard</a>
-      <a href="#" class="btn-secondary">Browse Courses</a>
-    </div>
-  </div>
+  <main class="gallery">
+    <img src="images/photo1.jpg" alt="Art 1" />
+    <img src="images/photo2.jpg" alt="Art 2" />
+    <img src="images/photo3.jpg" alt="Art 3" />
+    <img src="images/photo4.jpg" alt="Art 4" />
+    <img src="images/photo5.jpg" alt="Art 5" />
+    <!-- Add more as needed -->
+  </main>
 
   <footer>
-    © 2025 RatePasLesPartiels. All rights reserved.
+    <p>© 2025 Alexia | Made with ❤️</p>
   </footer>
-
 </body>
 </html>
