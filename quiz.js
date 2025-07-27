@@ -14,6 +14,8 @@ function getRandomQuestions(num = 5) {
 
 const selectedQuestions = getRandomQuestions();
 
+const questions = selectedQuestions;
+
 let currentQuestionIndex = 0;
 let score = 0;
 const userAnswers = [];
