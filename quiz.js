@@ -16,6 +16,25 @@ const questions = [
 let currentQuestionIndex = 0;
 let score = 0;
 
+const resultContainer = document.getElementById('result-container');
+
+// Show the score text
+resultContainer.textContent = `Vous avez obtenu ${score} / ${questions.length} bonnes réponses.`;
+
+// Create the "Voir les erreurs" button
+const errorsBtn = document.createElement('button');
+errorsBtn.textContent = "Voir les erreurs";
+errorsBtn.style.marginTop = "20px";
+errorsBtn.style.padding = "10px 20px";
+errorsBtn.style.cursor = "pointer";
+
+// Add the button to the page
+resultContainer.appendChild(errorsBtn);
+
+// When clicked, run showErrors function
+errorsBtn.addEventListener('click', showErrors);
+
+
 function showQuestion() {
   const q = questions[currentQuestionIndex];
   quizContainer.innerHTML = `
@@ -65,3 +84,37 @@ function showResults() {
 }
 
 showQuestion();
+
+function showErrors() {
+  questions.forEach((q, index) => {
+    // Find which option the user selected for this question
+    const selected = document.querySelector(`input[name="question${index}"]:checked`);
+
+    // Get all the labels for this question’s answers
+    const labels = document.querySelectorAll(`input[name="question${index}"] + label`);
+
+    // If user got it wrong or didn't select an answer
+    if (!selected || selected.value !== q.correctAnswer) {
+      // Highlight the correct answer label (in green here)
+      labels.forEach(label => {
+        if (label.htmlFor === `${index}-${q.correctAnswer}`) {
+          label.style.backgroundColor = '#4caf50'; // green background
+          label.style.color = 'white';
+        }
+      });
+
+      // If user selected a wrong answer, highlight it in red
+      if (selected) {
+        const wrongLabel = document.querySelector(`label[for="${selected.id}"]`);
+        if (wrongLabel) {
+          wrongLabel.style.backgroundColor = '#f44336'; // red background
+          wrongLabel.style.color = 'white';
+        }
+      }
+    }
+  });
+
+  // Disable the button so it can’t be clicked again
+  event.target.disabled = true;
+}
+
