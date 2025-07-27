@@ -6,7 +6,7 @@ console.log("Questions loaded:", questionBank.length);
 // Filter questions by tag "neuro"
 const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
 
-// Shuffle and take first N questions (default 5)
+// Shuffle and pick first N questions (default 5)
 function getRandomQuestions(num = 5) {
   return filteredQuestions
     .sort(() => Math.random() - 0.5)
@@ -21,18 +21,24 @@ const userAnswers = []; // store selected option indexes
 
 function showQuestion() {
   const q = selectedQuestions[currentQuestionIndex];
-  
+
+  // Build options HTML to avoid nested template literals issues
+  let optionsHtml = '';
+  for (let i = 0; i < q.options.length; i++) {
+    optionsHtml += `
+      <label for="q${currentQuestionIndex}-opt${i}">
+        <input type="radio" name="answer" id="q${currentQuestionIndex}-opt${i}" value="${i}" required />
+        ${q.options[i]}
+      </label><br/>
+    `;
+  }
+
   quizContainer.innerHTML = `
     <div>
       <p>Question ${currentQuestionIndex + 1} / ${selectedQuestions.length}</p>
       <p>${q.question}</p>
       <form id="quiz-form">
-        ${q.options.map((opt, i) => `
-          <label for="q${currentQuestionIndex}-opt${i}">
-            <input type="radio" name="answer" id="q${currentQuestionIndex}-opt${i}" value="${i}" required />
-            ${opt}
-          </label><br/>
-        `).join('')}
+        ${optionsHtml}
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -40,17 +46,17 @@ function showQuestion() {
 
   document.getElementById('quiz-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    
+
     const selectedIndex = +this.answer.value;
     userAnswers[currentQuestionIndex] = selectedIndex;
-    
+
     const selectedText = q.options[selectedIndex];
     if (selectedText === q.answer) {
       score++;
     }
-    
+
     currentQuestionIndex++;
-    
+
     if (currentQuestionIndex < selectedQuestions.length) {
       showQuestion();
     } else {
@@ -60,6 +66,8 @@ function showQuestion() {
 }
 
 function showResults() {
+  quizContainer.innerHTML = ''; // clear quiz area
+
   resultContainer.innerHTML = `
     <h2>Quiz terminé !</h2>
     <p>Votre score : ${score} / ${selectedQuestions.length}</p>
@@ -91,8 +99,6 @@ function showResults() {
     resultContainer.innerHTML = '';
     showQuestion();
   });
-
-  quizContainer.innerHTML = ''; // clear quiz area after finishing quiz
 }
 
 function showErrors() {
@@ -120,5 +126,5 @@ function showErrors() {
   });
 }
 
-// Start quiz
+// Start the quiz
 showQuestion();
