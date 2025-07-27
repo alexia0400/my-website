@@ -55,7 +55,6 @@ function showQuestion() {
 }
 
 function showResults() {
-  quizContainer.innerHTML = '';
   resultContainer.innerHTML = `
     <h2>Quiz terminé !</h2>
     <p>Votre score : ${score} / ${questions.length}</p>
