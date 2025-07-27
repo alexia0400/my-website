@@ -1,18 +1,18 @@
 const quizContainer = document.getElementById('quiz-container');
 const resultContainer = document.getElementById('result-container');
 
-const questions = [
-  {
-    question: "Quel est le principal neurotransmetteur impliqué dans la transmission synaptique?",
-    options: ["Dopamine", "Acétylcholine", "Glutamate", "Sérotonine"],
-    answer: 2
-  },
-  {
-    question: "Quelle région du cerveau est principalement associée à la mémoire?",
-    options: ["Cortex préfrontal", "Hippocampe", "Cervelet", "Thalamus"],
-    answer: 1
-  }
-];
+// Filter questions by tag (example: only "neuro")
+const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
+
+// Shuffle and take the first N questions
+function getRandomQuestions(num = 5) {
+  return filteredQuestions
+    .sort(() => Math.random() - 0.5)
+    .slice(0, num);
+}
+
+const selectedQuestions = getRandomQuestions();
+
 
 let currentQuestionIndex = 0;
 let score = 0;
