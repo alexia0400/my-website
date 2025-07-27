@@ -74,8 +74,8 @@ main {
   text-align: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s;
-  text-decoration: none; /* for anchor cards */
-  color: inherit; /* preserve text color */
+  text-decoration: none;
+  color: inherit;
 }
 
 .card:hover {
@@ -165,9 +165,9 @@ footer ul li a {
 .container {
   max-width: 1200px;
   margin: auto;
-  display: flex;          /* <-- important */
-  align-items: center;    /* vertically center items */
-  justify-content: space-between; /* spread out */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
@@ -179,7 +179,7 @@ footer ul li a {
 
 .nav-links {
   list-style: none;
-  display: flex;          /* horizontal layout */
+  display: flex;
   gap: 20px;
 }
 
@@ -206,12 +206,12 @@ footer ul li a {
 }
 
 /* Question text */
-.question {
+#quiz-container p {
   margin-bottom: 20px;
   font-weight: 600;
 }
 
-/* Options list */
+/* Options list for current question form */
 .options {
   list-style: none;
   padding-left: 0;
@@ -244,7 +244,7 @@ footer ul li a {
 }
 
 /* Submit button */
-button#submit-btn {
+button#submit-btn, #quiz-form button[type="submit"] {
   margin-top: 25px;
   padding: 12px 25px;
   background-color: var(--main-green);
@@ -256,8 +256,7 @@ button#submit-btn {
   transition: background-color 0.3s ease;
 }
 
-/* Submit button hover */
-button#submit-btn:hover {
+button#submit-btn:hover, #quiz-form button[type="submit"]:hover {
   background-color: var(--accent);
 }
 
@@ -270,13 +269,7 @@ button#submit-btn:hover {
   color: var(--main-green);
 }
 
-#result-container {
-  margin-top: 30px;
-  font-size: 1.2rem;
-  color: var(--main-green);
-  text-align: center;
-}
-
+/* Result container buttons */
 #result-container button {
   margin-top: 20px;
   padding: 12px 25px;
@@ -293,3 +286,52 @@ button#submit-btn:hover {
   background-color: #3ea561;
 }
 
+/* Error display styles for "Voir les erreurs" */
+
+/* Container for error review: questions + answers */
+#quiz-container div {
+  margin-bottom: 20px;
+}
+
+/* Question title in errors view */
+#quiz-container div p {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* List of options in errors view */
+#quiz-container div ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Each option in errors view */
+#quiz-container div ul li {
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  background-color: var(--light-green);
+  transition: background-color 0.3s ease;
+}
+
+/* Correct answer highlight */
+#quiz-container div ul li[style*="background-color: #4caf50"] {
+  background-color: #4caf50 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Wrong selected answer highlight */
+#quiz-container div ul li[style*="background-color: #f44336"] {
+  background-color: #f44336 !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+/* Horizontal rule between questions */
+#quiz-container hr {
+  margin: 25px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
