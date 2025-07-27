@@ -1,4 +1,5 @@
 const quizContainer = document.getElementById('quiz-container');
+const resultContainer = document.getElementById('result-container');
 
 const questions = [
   {
@@ -15,25 +16,7 @@ const questions = [
 
 let currentQuestionIndex = 0;
 let score = 0;
-
-const resultContainer = document.getElementById('result-container');
-
-// Show the score text
-resultContainer.textContent = `Vous avez obtenu ${score} / ${questions.length} bonnes réponses.`;
-
-// Create the "Voir les erreurs" button
-const errorsBtn = document.createElement('button');
-errorsBtn.textContent = "Voir les erreurs";
-errorsBtn.style.marginTop = "20px";
-errorsBtn.style.padding = "10px 20px";
-errorsBtn.style.cursor = "pointer";
-
-// Add the button to the page
-resultContainer.appendChild(errorsBtn);
-
-// When clicked, run showErrors function
-errorsBtn.addEventListener('click', showErrors);
-
+const userAnswers = [];
 
 function showQuestion() {
   const q = questions[currentQuestionIndex];
@@ -43,8 +26,8 @@ function showQuestion() {
       <p>${q.question}</p>
       <form id="quiz-form">
         ${q.options.map((opt, i) => `
-          <label>
-            <input type="radio" name="answer" value="${i}" required />
+          <label for="q${currentQuestionIndex}-opt${i}">
+            <input type="radio" name="answer" id="q${currentQuestionIndex}-opt${i}" value="${i}" required />
             ${opt}
           </label><br/>
         `).join('')}
@@ -56,11 +39,14 @@ function showQuestion() {
   document.getElementById('quiz-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const selected = +this.answer.value;
-    if(selected === q.answer) {
+
+    userAnswers[currentQuestionIndex] = selected;
+
+    if (selected === q.answer) {
       score++;
     }
     currentQuestionIndex++;
-    if(currentQuestionIndex < questions.length) {
+    if (currentQuestionIndex < questions.length) {
       showQuestion();
     } else {
       showResults();
@@ -69,52 +55,63 @@ function showQuestion() {
 }
 
 function showResults() {
-  quizContainer.innerHTML = `
-    <div>
-      <h2>Quiz terminé !</h2>
-      <p>Votre score : ${score} / ${questions.length}</p>
-      <button id="restart-btn">Recommencer</button>
-    </div>
+  quizContainer.innerHTML = '';
+  resultContainer.innerHTML = `
+    <h2>Quiz terminé !</h2>
+    <p>Votre score : ${score} / ${questions.length}</p>
   `;
-  document.getElementById('restart-btn').addEventListener('click', () => {
+
+  const errorsBtn = document.createElement('button');
+  errorsBtn.textContent = "Voir les erreurs";
+  errorsBtn.style.marginTop = "20px";
+  errorsBtn.style.padding = "10px 20px";
+  errorsBtn.style.cursor = "pointer";
+
+  resultContainer.appendChild(errorsBtn);
+
+  errorsBtn.addEventListener('click', showErrors);
+
+  const restartBtn = document.createElement('button');
+  restartBtn.textContent = "Recommencer";
+  restartBtn.style.marginLeft = "10px";
+  restartBtn.style.padding = "10px 20px";
+  restartBtn.style.cursor = "pointer";
+
+  resultContainer.appendChild(restartBtn);
+
+  restartBtn.addEventListener('click', () => {
     currentQuestionIndex = 0;
     score = 0;
+    userAnswers.length = 0;
+    resultContainer.innerHTML = '';
     showQuestion();
   });
 }
 
-showQuestion();
-
 function showErrors() {
+  quizContainer.innerHTML = ''; // clear quiz container
+
   questions.forEach((q, index) => {
-    // Find which option the user selected for this question
-    const selected = document.querySelector(`input[name="question${index}"]:checked`);
+    const userAnswer = userAnswers[index];
+    const correctAnswer = q.answer;
 
-    // Get all the labels for this question’s answers
-    const labels = document.querySelectorAll(`input[name="question${index}"] + label`);
+    let questionHtml = `<div><p><strong>Question ${index + 1}:</strong> ${q.question}</p><ul>`;
 
-    // If user got it wrong or didn't select an answer
-    if (!selected || selected.value !== q.correctAnswer) {
-      // Highlight the correct answer label (in green here)
-      labels.forEach(label => {
-        if (label.htmlFor === `${index}-${q.correctAnswer}`) {
-          label.style.backgroundColor = '#4caf50'; // green background
-          label.style.color = 'white';
-        }
-      });
+    q.options.forEach((opt, i) => {
+      let style = '';
+      if (i === correctAnswer) style = 'background-color: #4caf50; color: white;';  // correct = green
+      if (userAnswer === i && userAnswer !== correctAnswer) style = 'background-color: #f44336; color: white;'; // wrong selected = red
 
-      // If user selected a wrong answer, highlight it in red
-      if (selected) {
-        const wrongLabel = document.querySelector(`label[for="${selected.id}"]`);
-        if (wrongLabel) {
-          wrongLabel.style.backgroundColor = '#f44336'; // red background
-          wrongLabel.style.color = 'white';
-        }
-      }
-    }
+      questionHtml += `<li style="${style}">${opt}</li>`;
+    });
+
+    questionHtml += '</ul></div><hr>';
+    quizContainer.innerHTML += questionHtml;
   });
 
-  // Disable the button so it can’t be clicked again
-  event.target.disabled = true;
+  // Disable the "Voir les erreurs" button after click
+  const errorsBtn = resultContainer.querySelector('button');
+  if (errorsBtn) errorsBtn.disabled = true;
 }
 
+showQuestion();
