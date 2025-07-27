@@ -5,7 +5,7 @@ const resultContainer = document.getElementById('result-container');
 const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
 
 // Shuffle and take the first N questions
-function getRandomQuestions(num = 1) {
+function getRandomQuestions(num = 5) {
   return filteredQuestions
     .sort(() => Math.random() - 0.5)
     .slice(0, num);
@@ -13,16 +13,15 @@ function getRandomQuestions(num = 1) {
 
 const selectedQuestions = getRandomQuestions();
 
-
 let currentQuestionIndex = 0;
 let score = 0;
 const userAnswers = [];
 
 function showQuestion() {
-  const q = questions[currentQuestionIndex];
+  const q = selectedQuestions[currentQuestionIndex];
   quizContainer.innerHTML = `
     <div>
-      <p>Question ${currentQuestionIndex + 1} / ${questions.length}</p>
+      <p>Question ${currentQuestionIndex + 1} / ${selectedQuestions.length}</p>
       <p>${q.question}</p>
       <form id="quiz-form">
         ${q.options.map((opt, i) => `
@@ -45,8 +44,9 @@ function showQuestion() {
     if (selected === q.answer) {
       score++;
     }
+
     currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
+    if (currentQuestionIndex < selectedQuestions.length) {
       showQuestion();
     } else {
       showResults();
@@ -57,7 +57,7 @@ function showQuestion() {
 function showResults() {
   resultContainer.innerHTML = `
     <h2>Quiz terminé !</h2>
-    <p>Votre score : ${score} / ${questions.length}</p>
+    <p>Votre score : ${score} / ${selectedQuestions.length}</p>
   `;
 
   const errorsBtn = document.createElement('button');
@@ -67,7 +67,6 @@ function showResults() {
   errorsBtn.style.cursor = "pointer";
 
   resultContainer.appendChild(errorsBtn);
-
   errorsBtn.addEventListener('click', showErrors);
 
   const restartBtn = document.createElement('button');
@@ -77,7 +76,6 @@ function showResults() {
   restartBtn.style.cursor = "pointer";
 
   resultContainer.appendChild(restartBtn);
-
   restartBtn.addEventListener('click', () => {
     currentQuestionIndex = 0;
     score = 0;
@@ -90,7 +88,7 @@ function showResults() {
 function showErrors() {
   quizContainer.innerHTML = ''; // clear quiz container
 
-  questions.forEach((q, index) => {
+  selectedQuestions.forEach((q, index) => {
     const userAnswer = userAnswers[index];
     const correctAnswer = q.answer;
 
@@ -98,8 +96,8 @@ function showErrors() {
 
     q.options.forEach((opt, i) => {
       let style = '';
-      if (i === correctAnswer) style = 'background-color: #4caf50; color: white;';  // correct = green
-      if (userAnswer === i && userAnswer !== correctAnswer) style = 'background-color: #f44336; color: white;'; // wrong selected = red
+      if (i === correctAnswer) style = 'background-color: #4caf50; color: white;'; // green for correct
+      if (userAnswer === i && userAnswer !== correctAnswer) style = 'background-color: #f44336; color: white;'; // red for wrong
 
       questionHtml += `<li style="${style}">${opt}</li>`;
     });
@@ -108,7 +106,7 @@ function showErrors() {
     quizContainer.innerHTML += questionHtml;
   });
 
-  // Disable the "Voir les erreurs" button after click
+  // Disable the "Voir les erreurs" button after it's clicked
   const errorsBtn = resultContainer.querySelector('button');
   if (errorsBtn) errorsBtn.disabled = true;
 }
