@@ -44,8 +44,10 @@ function showQuestion() {
 
     userAnswers[currentQuestionIndex] = selected;
 
-    if (selected === q.answer) {
-      score++;
+    const selectedOptionText = q.options[selected];
+if (selectedOptionText === q.answer) {
+  score++;
+}
     }
 
     currentQuestionIndex++;
