@@ -5,7 +5,7 @@ const resultContainer = document.getElementById('result-container');
 const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
 
 // Shuffle and take the first N questions
-function getRandomQuestions(num = 5) {
+function getRandomQuestions(num = 1) {
   return filteredQuestions
     .sort(() => Math.random() - 0.5)
     .slice(0, num);
