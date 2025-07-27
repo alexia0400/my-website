@@ -10,35 +10,24 @@ const questions = [
     question: "Quelle région du cerveau est principalement associée à la mémoire?",
     options: ["Cortex préfrontal", "Hippocampe", "Cervelet", "Thalamus"],
     answer: 1
-  },
-  {
-    question: "Quel est le nerf crânien responsable de la vision?",
-    options: ["Nerf optique", "Nerf facial", "Nerf trijumeau", "Nerf vague"],
-    answer: 0
   }
 ];
 
-// Shuffle questions array for random order
-function shuffleArray(array) {
-  return array.sort(() => Math.random() - 0.5);
-}
-
-let shuffledQuestions = shuffleArray([...questions]);
 let currentQuestionIndex = 0;
 let score = 0;
 
 function showQuestion() {
-  const q = shuffledQuestions[currentQuestionIndex];
+  const q = questions[currentQuestionIndex];
   quizContainer.innerHTML = `
     <div>
-      <p>Question ${currentQuestionIndex + 1} / ${shuffledQuestions.length}</p>
+      <p>Question ${currentQuestionIndex + 1} / ${questions.length}</p>
       <p>${q.question}</p>
       <form id="quiz-form">
         ${q.options.map((opt, i) => `
           <label>
             <input type="radio" name="answer" value="${i}" required />
             ${opt}
-          </label>
+          </label><br/>
         `).join('')}
         <button type="submit">Submit</button>
       </form>
@@ -52,7 +41,7 @@ function showQuestion() {
       score++;
     }
     currentQuestionIndex++;
-    if(currentQuestionIndex < shuffledQuestions.length) {
+    if(currentQuestionIndex < questions.length) {
       showQuestion();
     } else {
       showResults();
@@ -64,17 +53,15 @@ function showResults() {
   quizContainer.innerHTML = `
     <div>
       <h2>Quiz terminé !</h2>
-      <p>Votre score : ${score} / ${shuffledQuestions.length}</p>
+      <p>Votre score : ${score} / ${questions.length}</p>
       <button id="restart-btn">Recommencer</button>
     </div>
   `;
   document.getElementById('restart-btn').addEventListener('click', () => {
     currentQuestionIndex = 0;
     score = 0;
-    shuffledQuestions = shuffleArray([...questions]);
     showQuestion();
   });
 }
 
-// Start quiz on page load
 showQuestion();
