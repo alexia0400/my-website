@@ -194,41 +194,78 @@ footer ul li a {
   color: var(--accent);
 }
 
-/* Quiz-specific styles */
-
-#quiz-container > div {
+/* Quiz container */
+#quiz-container {
   background: white;
-  padding: 20px 30px;
-  margin-bottom: 25px;
+  padding: 30px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-size: 1.1rem;
+  max-width: 900px;
+  margin: 40px auto;
 }
 
-#quiz-container p {
-  font-size: 1.1rem;
-  color: var(--main-green);
+/* Question text */
+.question {
+  margin-bottom: 20px;
   font-weight: 600;
+}
+
+/* Options list */
+.options {
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Each option */
+.options li {
   margin-bottom: 15px;
 }
 
-label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 1rem;
+/* Option label styling */
+.options label {
   cursor: pointer;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: var(--light-green);
+  transition: background-color 0.3s ease;
 }
 
-button {
-  background: var(--accent);
+/* Hide radio buttons */
+.options input[type="radio"] {
+  display: none;
+}
+
+/* Highlight selected option */
+.options input[type="radio"]:checked + label {
+  background-color: var(--accent);
   color: white;
+}
+
+/* Submit button */
+button#submit-btn {
+  margin-top: 25px;
   padding: 12px 25px;
-  border-radius: 8px;
-  font-weight: 600;
+  background-color: var(--main-green);
+  color: white;
   border: none;
+  font-size: 1.1rem;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background: #4aa05c;
+/* Submit button hover */
+button#submit-btn:hover {
+  background-color: var(--accent);
+}
+
+/* Quiz result container */
+#result-container {
+  margin-top: 30px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+  color: var(--main-green);
 }
