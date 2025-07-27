@@ -94,23 +94,22 @@ function showErrors() {
   quizContainer.innerHTML = ''; // clear quiz container
 
   selectedQuestions.forEach((q, index) => {
-    const userAnswer = userAnswers[index];
-    const correctAnswer = q.answer;
+  const userAnswer = userAnswers[index];
+  const correctAnswerIndex = q.options.indexOf(q.answer);
 
-    let questionHtml = `<div><p><strong>Question ${index + 1}:</strong> ${q.question}</p><ul>`;
+  let questionHtml = `<div><p><strong>Question ${index + 1}:</strong> ${q.question}</p><ul>`;
 
-    q.options.forEach((opt, i) => {
-      let style = '';
-      if (i === correctAnswer) style = 'background-color: #4caf50; color: white;'; // green for correct
-      if (userAnswer === i && userAnswer !== correctAnswer) style = 'background-color: #f44336; color: white;'; // red for wrong
+  q.options.forEach((opt, i) => {
+    let style = '';
+    if (i === correctAnswerIndex) style = 'background-color: #4caf50; color: white;';
+    if (userAnswer === i && i !== correctAnswerIndex) style = 'background-color: #f44336; color: white;';
 
-      questionHtml += `<li style="${style}">${opt}</li>`;
-    });
-
-    questionHtml += '</ul></div><hr>';
-    quizContainer.innerHTML += questionHtml;
+    questionHtml += `<li style="${style}">${opt}</li>`;
   });
 
+  questionHtml += '</ul></div><hr>';
+  quizContainer.innerHTML += questionHtml;
+});
   // Disable the "Voir les erreurs" button after it's clicked
   const errorsBtn = resultContainer.querySelector('button');
   if (errorsBtn) errorsBtn.disabled = true;
