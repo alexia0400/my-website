@@ -3,86 +3,222 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Alexia's World</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Raleway&display=swap" rel="stylesheet">
-
+  <title>QuizNest | Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --main-green: #1a5d3b;
+      --light-green: #e8f5e9;
+      --accent: #59c378;
+    }
+
+    * {
       margin: 0;
-      background: #fdf6f0;
-      color: #2c2c2c;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Raleway', sans-serif;
+      color: #222;
+      background: #f9f9f9;
     }
 
-    .hero {
-      background: linear-gradient(to bottom right, #ffe4e1, #fceabb);
+    header {
+      background: url('https://images.unsplash.com/photo-1584697964154-4c1e0fd6bfa2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') center/cover;
+      color: white;
+      padding: 100px 20px;
       text-align: center;
-      padding: 80px 20px;
-      font-family: 'Playfair Display', serif;
-      animation: fadeIn 2s ease;
+      position: relative;
     }
 
-    .hero h1 {
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: rgba(26, 93, 59, 0.7);
+      z-index: 0;
+    }
+
+    header h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
-      color: #4b2e2e;
+      z-index: 1;
+      position: relative;
     }
 
-    .hero p {
+    header p {
       font-size: 1.2rem;
-      color: #5a5a5a;
+      margin-top: 10px;
+      z-index: 1;
+      position: relative;
     }
 
-    .gallery {
+    main {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      color: var(--main-green);
+      font-size: 2rem;
+    }
+
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-      padding: 40px;
-      animation: fadeIn 1.5s ease;
+      gap: 30px;
     }
 
-    .gallery img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s;
     }
 
-    .gallery img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 60px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      color: var(--main-green);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #555;
     }
 
     footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #888;
+      background: var(--main-green);
+      color: white;
+      padding: 40px 20px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    footer .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    footer h4 {
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    footer ul {
+      list-style: none;
+    }
+
+    footer ul li {
+      margin-bottom: 8px;
+    }
+
+    footer ul li a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    .subscribe input {
+      padding: 10px;
+      border: none;
+      width: 70%;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .subscribe button {
+      padding: 10px 15px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 0.8rem;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <h1>Alexia's World</h1>
-    <p>A visual diary of moments, mood, and magic ✨</p>
+
+  <header>
+    <h1>QuizNest</h1>
+    <p>Sharpen your mind. One quiz at a time. 🧠</p>
   </header>
 
-  <main class="gallery">
-    <img src="images/photo1.jpg" alt="Art 1" />
-    <img src="images/photo2.jpg" alt="Art 2" />
-    <img src="images/photo3.jpg" alt="Art 3" />
-    <img src="images/photo4.jpg" alt="Art 4" />
-    <img src="images/photo5.jpg" alt="Art 5" />
-    <!-- Add more <img> tags as needed -->
+  <main>
+    <div class="section-title">
+      <h2>Choose a Quiz Category</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/4caf50/brain.png" alt="Neuro">
+        <h3>Neurology</h3>
+        <p>Challenge your brain with neuro quizzes.</p>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/4caf50/stethoscope.png" alt="General Med">
+        <h3>General Medicine</h3>
+        <p>Test your clinical reasoning across fields.</p>
+      </div>
+      <div class="card">
+        <img src="https://img.icons8.com/ios-filled/50/4caf50/baby.png" alt="Gyneco">
+        <h3>Gynecology</h3>
+        <p>Revisit women's health topics effectively.</p>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <p>© 2025 Alexia | Made with ❤️</p>
+    <div class="footer-grid">
+      <div>
+        <h4>About</h4>
+        <p>QuizNest helps med students learn faster through custom quizzes and interactive learning tools.</p>
+      </div>
+      <div>
+        <h4>Links</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Start Quiz</a></li>
+          <li><a href="#">Topics</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <div class="subscribe">
+          <input type="email" placeholder="Your email" />
+          <button>Subscribe</button>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 QuizNest by Alexia. All rights reserved.
+    </div>
   </footer>
+
 </body>
 </html>
