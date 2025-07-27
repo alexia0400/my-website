@@ -1,5 +1,6 @@
 const quizContainer = document.getElementById('quiz-container');
 const resultContainer = document.getElementById('result-container');
+console.log("Questions loaded:", questionBank.length);
 
 // Filter questions by tag (example: only "neuro")
 const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
