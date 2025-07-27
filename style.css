@@ -154,7 +154,6 @@ footer ul li a {
   color: #ccc;
 }
 
-/* Navbar styles */
 .navbar {
   background: var(--main-green);
   padding: 10px 20px;
@@ -163,12 +162,12 @@ footer ul li a {
   z-index: 10;
 }
 
-.navbar .container {
+.container {
   max-width: 1200px;
   margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex;          /* <-- important */
+  align-items: center;    /* vertically center items */
+  justify-content: space-between; /* spread out */
 }
 
 .logo {
@@ -180,7 +179,7 @@ footer ul li a {
 
 .nav-links {
   list-style: none;
-  display: flex;
+  display: flex;          /* horizontal layout */
   gap: 20px;
 }
 
@@ -194,4 +193,3 @@ footer ul li a {
 .nav-links li a:hover {
   color: var(--accent);
 }
-
