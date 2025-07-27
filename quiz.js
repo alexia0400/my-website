@@ -1,11 +1,12 @@
 const quizContainer = document.getElementById('quiz-container');
 const resultContainer = document.getElementById('result-container');
+
 console.log("Questions loaded:", questionBank.length);
 
-// Filter questions by tag (example: only "neuro")
+// Filter questions by tag "neuro"
 const filteredQuestions = questionBank.filter(q => q.tags.includes("neuro"));
 
-// Shuffle and take the first N questions
+// Shuffle and take first N questions (default 5)
 function getRandomQuestions(num = 5) {
   return filteredQuestions
     .sort(() => Math.random() - 0.5)
@@ -14,14 +15,13 @@ function getRandomQuestions(num = 5) {
 
 const selectedQuestions = getRandomQuestions();
 
-const questions = selectedQuestions;
-
 let currentQuestionIndex = 0;
 let score = 0;
-const userAnswers = [];
+const userAnswers = []; // store selected option indexes
 
 function showQuestion() {
   const q = selectedQuestions[currentQuestionIndex];
+  
   quizContainer.innerHTML = `
     <div>
       <p>Question ${currentQuestionIndex + 1} / ${selectedQuestions.length}</p>
@@ -40,17 +40,17 @@ function showQuestion() {
 
   document.getElementById('quiz-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const selected = +this.answer.value;
-
-    userAnswers[currentQuestionIndex] = selected;
-
-    const selectedOptionText = q.options[selected];
-if (selectedOptionText === q.answer) {
-  score++;
-}
+    
+    const selectedIndex = +this.answer.value;
+    userAnswers[currentQuestionIndex] = selectedIndex;
+    
+    const selectedText = q.options[selectedIndex];
+    if (selectedText === q.answer) {
+      score++;
     }
-
+    
     currentQuestionIndex++;
+    
     if (currentQuestionIndex < selectedQuestions.length) {
       showQuestion();
     } else {
@@ -70,17 +70,20 @@ function showResults() {
   errorsBtn.style.marginTop = "20px";
   errorsBtn.style.padding = "10px 20px";
   errorsBtn.style.cursor = "pointer";
-
   resultContainer.appendChild(errorsBtn);
-  errorsBtn.addEventListener('click', showErrors);
+
+  errorsBtn.addEventListener('click', () => {
+    showErrors();
+    errorsBtn.disabled = true;
+  });
 
   const restartBtn = document.createElement('button');
   restartBtn.textContent = "Recommencer";
   restartBtn.style.marginLeft = "10px";
   restartBtn.style.padding = "10px 20px";
   restartBtn.style.cursor = "pointer";
-
   resultContainer.appendChild(restartBtn);
+
   restartBtn.addEventListener('click', () => {
     currentQuestionIndex = 0;
     score = 0;
@@ -88,31 +91,34 @@ function showResults() {
     resultContainer.innerHTML = '';
     showQuestion();
   });
+
+  quizContainer.innerHTML = ''; // clear quiz area after finishing quiz
 }
 
 function showErrors() {
   quizContainer.innerHTML = ''; // clear quiz container
 
   selectedQuestions.forEach((q, index) => {
-  const userAnswer = userAnswers[index];
-  const correctAnswerIndex = q.options.indexOf(q.answer);
+    const userAnswerIndex = userAnswers[index];
+    const correctAnswerIndex = q.options.indexOf(q.answer);
 
-  let questionHtml = `<div><p><strong>Question ${index + 1}:</strong> ${q.question}</p><ul>`;
+    let questionHtml = `<div><p><strong>Question ${index + 1}:</strong> ${q.question}</p><ul>`;
 
-  q.options.forEach((opt, i) => {
-    let style = '';
-    if (i === correctAnswerIndex) style = 'background-color: #4caf50; color: white;';
-    if (userAnswer === i && i !== correctAnswerIndex) style = 'background-color: #f44336; color: white;';
+    q.options.forEach((opt, i) => {
+      let style = '';
+      if (i === correctAnswerIndex) {
+        style = 'background-color: #4caf50; color: white;'; // green for correct
+      }
+      if (userAnswerIndex === i && i !== correctAnswerIndex) {
+        style = 'background-color: #f44336; color: white;'; // red for wrong
+      }
+      questionHtml += `<li style="${style}">${opt}</li>`;
+    });
 
-    questionHtml += `<li style="${style}">${opt}</li>`;
+    questionHtml += '</ul></div><hr>';
+    quizContainer.innerHTML += questionHtml;
   });
-
-  questionHtml += '</ul></div><hr>';
-  quizContainer.innerHTML += questionHtml;
-});
-  // Disable the "Voir les erreurs" button after it's clicked
-  const errorsBtn = resultContainer.querySelector('button');
-  if (errorsBtn) errorsBtn.disabled = true;
 }
 
+// Start quiz
 showQuestion();
