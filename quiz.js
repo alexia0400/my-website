@@ -69,4 +69,12 @@ function showResults() {
     </div>
   `;
   document.getElementById('restart-btn').addEventListener('click', () => {
-    currentQuestionIndex =
+    currentQuestionIndex = 0;
+    score = 0;
+    shuffledQuestions = shuffleArray([...questions]);
+    showQuestion();
+  });
+}
+
+// Start quiz on page load
+showQuestion();
